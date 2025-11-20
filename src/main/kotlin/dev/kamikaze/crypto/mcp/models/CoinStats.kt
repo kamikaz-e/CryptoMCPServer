@@ -44,11 +44,6 @@ data class CoinStatsNews(
 )
 
 @Serializable
-data class FearGreedResponse(
-    val result: FearGreedData
-)
-
-@Serializable
 data class FearGreedData(
     val name: String = "Fear and Greed Index",
     val now: PeriodData,

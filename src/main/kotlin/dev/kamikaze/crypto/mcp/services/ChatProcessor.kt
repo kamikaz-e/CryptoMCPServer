@@ -74,7 +74,7 @@ class ChatProcessor(
 
             CoinPrice(
                 symbol = normalizeSymbol(coin.ticker),
-                name = normalizeName(coin.name, coin.ticker),
+                name = normalizeName(coin.ticker),
                 price = coin.price,
                 change1hPct = change?.first,
                 change1hAbs = change?.second
@@ -167,7 +167,7 @@ class ChatProcessor(
         return symbol.uppercase()
     }
 
-    private fun normalizeName(name: String, symbol: String): String {
+    private fun normalizeName(symbol: String): String {
         return symbol.uppercase()
     }
 }

@@ -8,8 +8,6 @@ import io.ktor.server.routing.*
 
 fun Route.summaryRoute(chatProcessor: ChatProcessor) {
     get("/summary") {
-        val period = call.request.queryParameters["period"] ?: "1h"
-
         val items = chatProcessor.getSummary()
         call.respond(ChatResponse(items = items))
     }
