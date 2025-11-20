@@ -1,4 +1,4 @@
-package com.crypto.mcp.routes
+package dev.kamikaze.crypto.mcp.routes
 
 import dev.kamikaze.crypto.mcp.models.ToolItem
 import dev.kamikaze.crypto.mcp.models.ToolsResponse
@@ -12,8 +12,8 @@ fun Route.toolsRoute() {
             ToolItem(
                 id = "pricesSummary",
                 title = "Курсы основных монет",
-                description = "BTC, ETH, SOL, ASTR, HYPE, ZEC; либо все валюты",
-                sampleQuery = "Покажи курсы BTC, ETH, SOL, ASTR, HYPE, ZEC"
+                description = "BTC, ETH, SOL, ASTER, HYPE, ZEC; либо все валюты",
+                sampleQuery = "Покажи курсы BTC, ETH, SOL, ASTER, HYPE, ZEC"
             ),
             ToolItem(
                 id = "fearGreed",

@@ -1,4 +1,4 @@
-package com.crypto.mcp.services
+package dev.kamikaze.crypto.mcp.services
 
 import dev.kamikaze.crypto.mcp.models.*
 import io.ktor.client.*
@@ -42,7 +42,7 @@ class CoinStatsService {
 
     suspend fun getCoinByTicker(ticker: String): CoinStatsCoin? {
         return getCoins(100).find {
-            it.symbol.equals(ticker, ignoreCase = true) ||
+            it.ticker.equals(ticker, ignoreCase = true) ||
             it.name.equals(ticker, ignoreCase = true)
         }
     }

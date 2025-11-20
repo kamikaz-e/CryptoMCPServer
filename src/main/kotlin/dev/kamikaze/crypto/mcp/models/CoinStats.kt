@@ -13,7 +13,8 @@ data class CoinStatsCoin(
     val id: String,
     val icon: String? = null,
     val name: String,
-    val symbol: String,
+    @SerialName("symbol")
+    val ticker: String,
     val rank: Int,
     val price: Double,
     val priceBtc: Double? = null,

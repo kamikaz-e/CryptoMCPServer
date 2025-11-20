@@ -1,8 +1,8 @@
-package com.crypto.mcp.routes
+package dev.kamikaze.crypto.mcp.routes
 
 import dev.kamikaze.crypto.mcp.models.ChatRequest
 import dev.kamikaze.crypto.mcp.models.ChatResponse
-import com.crypto.mcp.services.ChatProcessor
+import dev.kamikaze.crypto.mcp.services.ChatProcessor
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*

@@ -1,4 +1,4 @@
-package com.crypto.mcp.services
+package dev.kamikaze.crypto.mcp.services
 
 import dev.kamikaze.crypto.mcp.models.ChatResponseItem
 import dev.kamikaze.crypto.mcp.models.CoinPrice
@@ -8,7 +8,7 @@ class ChatProcessor(
     private val coinStatsService: CoinStatsService,
     private val priceTracker: PriceTracker
 ) {
-    private val targetCoins = listOf("BTC", "ETH", "SOL", "ASTR", "HYPE", "ZEC")
+    private val targetCoins = listOf("BTC", "ETH", "SOL", "ASTER", "HYPE", "ZEC")
 
     suspend fun processMessage(message: String): List<ChatResponseItem> {
         val lowerMessage = message.lowercase()
@@ -66,15 +66,15 @@ class ChatProcessor(
 
         val targetPrices = targetCoins.mapNotNull { symbol ->
             val coin = allCoins.find {
-                it.symbol.equals(symbol, ignoreCase = true) ||
-                (symbol == "ASTR" && it.symbol.equals("ASTER", ignoreCase = true))
+                it.ticker.equals(symbol, ignoreCase = true) ||
+                it.ticker.equals("ASTER", ignoreCase = true)
             } ?: return@mapNotNull null
 
-            val change = priceTracker.getPriceChange1h(coin.symbol)
+            val change = priceTracker.getPriceChange1h(coin.ticker)
 
             CoinPrice(
-                symbol = normalizeSymbol(coin.symbol),
-                name = normalizeName(coin.name, coin.symbol),
+                symbol = normalizeSymbol(coin.ticker),
+                name = normalizeName(coin.name, coin.ticker),
                 price = coin.price,
                 change1hPct = change?.first,
                 change1hAbs = change?.second
@@ -146,7 +146,7 @@ class ChatProcessor(
         return listOf(
             ChatResponseItem(
                 type = "coin",
-                symbol = coin.symbol,
+                symbol = coin.ticker,
                 name = coin.name,
                 description = "Ранг: ${coin.rank}",
                 marketCap = coin.marketCap,
@@ -168,9 +168,6 @@ class ChatProcessor(
     }
 
     private fun normalizeName(name: String, symbol: String): String {
-        return when (symbol.uppercase()) {
-            "ASTER", "ASTR" -> "Astar"
-            else -> name
-        }
+        return symbol.uppercase()
     }
 }

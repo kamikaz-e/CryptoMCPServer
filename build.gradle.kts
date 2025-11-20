@@ -4,7 +4,7 @@ plugins {
     application
 }
 
-group = "com.crypto.mcp"
+group = "dev.kamikaze.crypto.mcp"
 version = "1.0.0"
 
 repositories {
@@ -49,7 +49,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("com.crypto.mcp.ApplicationKt")
+    mainClass.set("dev.kamikaze.crypto.mcp.ApplicationKt")
 }
 
 tasks.test {
@@ -87,7 +87,7 @@ tasks.register<Jar>("fatJar") {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     manifest {
-        attributes["Main-Class"] = "com.crypto.mcp.ApplicationKt"
+        attributes["Main-Class"] = "dev.kamikaze.crypto.mcp.ApplicationKt"
     }
 
     from(sourceSets.main.get().output)

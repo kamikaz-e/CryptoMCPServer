@@ -1,6 +1,6 @@
-package com.crypto.mcp
+package dev.kamikaze.crypto.mcp
 
-import com.crypto.mcp.plugins.*
+import dev.kamikaze.crypto.mcp.plugins.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*

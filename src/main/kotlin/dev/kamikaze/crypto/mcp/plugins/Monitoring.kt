@@ -1,4 +1,4 @@
-package com.crypto.mcp.plugins
+package dev.kamikaze.crypto.mcp.plugins
 
 import io.ktor.server.application.*
 import io.ktor.server.plugins.callloging.*

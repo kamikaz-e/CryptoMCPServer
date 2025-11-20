@@ -1,4 +1,4 @@
-package com.crypto.mcp.services
+package dev.kamikaze.crypto.mcp.services
 
 import kotlinx.coroutines.*
 import java.util.concurrent.ConcurrentHashMap
@@ -28,8 +28,8 @@ class PriceTracker(private val coinStatsService: CoinStatsService) {
     private suspend fun trackPrices() {
         val coins = coinStatsService.getCoins(100)
         coins.forEach { coin ->
-            val symbol = normalizeSymbol(coin.symbol)
-            priceHistory.getOrPut(symbol) { mutableListOf() }.apply {
+            val ticker = normalizeSymbol(coin.ticker)
+            priceHistory.getOrPut(ticker) { mutableListOf() }.apply {
                 add(PriceSnapshot(coin.price))
                 // Храним только последние 120 снимков (2 часа)
                 if (size > 120) removeAt(0)
@@ -55,9 +55,6 @@ class PriceTracker(private val coinStatsService: CoinStatsService) {
     }
 
     private fun normalizeSymbol(symbol: String): String {
-        return when (symbol.uppercase()) {
-            "ASTER" -> "ASTR"
-            else -> symbol.uppercase()
-        }
+        return symbol.uppercase()
     }
 }

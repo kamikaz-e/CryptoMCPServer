@@ -1,11 +1,11 @@
-package com.crypto.mcp.plugins
+package dev.kamikaze.crypto.mcp.plugins
 
-import com.crypto.mcp.routes.chatRoute
-import com.crypto.mcp.routes.summaryRoute
-import com.crypto.mcp.routes.toolsRoute
-import com.crypto.mcp.services.CoinStatsService
-import com.crypto.mcp.services.ChatProcessor
-import com.crypto.mcp.services.PriceTracker
+import dev.kamikaze.crypto.mcp.routes.chatRoute
+import dev.kamikaze.crypto.mcp.routes.summaryRoute
+import dev.kamikaze.crypto.mcp.routes.toolsRoute
+import dev.kamikaze.crypto.mcp.services.CoinStatsService
+import dev.kamikaze.crypto.mcp.services.ChatProcessor
+import dev.kamikaze.crypto.mcp.services.PriceTracker
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
