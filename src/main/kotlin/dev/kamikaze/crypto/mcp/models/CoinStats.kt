@@ -22,9 +22,28 @@ data class CoinStatsCoin(
     val marketCap: Double? = null,
     val availableSupply: Double? = null,
     val totalSupply: Double? = null,
+    val fullyDilutedValuation: Double? = null,
     @SerialName("priceChange1h") val priceChange1h: Double? = null,
     @SerialName("priceChange1d") val priceChange1d: Double? = null,
-    @SerialName("priceChange1w") val priceChange1w: Double? = null
+    @SerialName("priceChange1w") val priceChange1w: Double? = null,
+    val websiteUrl: String? = null,
+    val redditUrl: String? = null,
+    val twitterUrl: String? = null,
+    val contractAddress: String? = null,
+    val contractAddresses: List<ContractAddress>? = null,
+    val decimals: Int? = null,
+    val explorers: List<String>? = null,
+    val liquidityScore: Double? = null,
+    val volatilityScore: Double? = null,
+    val marketCapScore: Double? = null,
+    val riskScore: Double? = null,
+    val avgChange: Double? = null
+)
+
+@Serializable
+data class ContractAddress(
+    val blockchain: String,
+    val contractAddress: String
 )
 
 @Serializable

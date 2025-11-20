@@ -44,9 +44,31 @@ data class ChatResponseItem(
     val symbol: String? = null,
     val name: String? = null,
     val description: String? = null,
-    val marketCap: Double? = null,
+    val icon: String? = null,
+    val id: String? = null,
+    val rank: Int? = null,
     val price: Double? = null,
-    val change24h: Double? = null
+    val priceBtc: Double? = null,
+    val volume24h: Double? = null,
+    val marketCap: Double? = null,
+    val availableSupply: Double? = null,
+    val totalSupply: Double? = null,
+    val fullyDilutedValuation: Double? = null,
+    val change1h: Double? = null,
+    val change24h: Double? = null,
+    val change1w: Double? = null,
+    val websiteUrl: String? = null,
+    val redditUrl: String? = null,
+    val twitterUrl: String? = null,
+    val contractAddress: String? = null,
+    val contractAddresses: List<ContractAddressInfo>? = null,
+    val decimals: Int? = null,
+    val explorers: List<String>? = null,
+    val liquidityScore: Double? = null,
+    val volatilityScore: Double? = null,
+    val marketCapScore: Double? = null,
+    val riskScore: Double? = null,
+    val avgChange: Double? = null
 )
 
 @Serializable
@@ -64,4 +86,10 @@ data class NewsItem(
     val source: String?,
     val time: Long,
     val url: String?
+)
+
+@Serializable
+data class ContractAddressInfo(
+    val blockchain: String,
+    val contractAddress: String
 )

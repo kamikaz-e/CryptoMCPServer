@@ -2,6 +2,7 @@ package dev.kamikaze.crypto.mcp.services
 
 import dev.kamikaze.crypto.mcp.models.ChatResponseItem
 import dev.kamikaze.crypto.mcp.models.CoinPrice
+import dev.kamikaze.crypto.mcp.models.ContractAddressInfo
 import dev.kamikaze.crypto.mcp.models.NewsItem
 
 class ChatProcessor(
@@ -136,24 +137,85 @@ class ChatProcessor(
             )
         }
 
-        val coin = coinStatsService.getCoinByTicker(symbol) ?: return listOf(
+        // Сначала ищем монету в списке по тикеру или названию
+        val foundCoin = coinStatsService.getCoinByTicker(symbol) ?: return listOf(
             ChatResponseItem(
                 type = "text",
                 text = "Монета с символом '$symbol' не найдена"
             )
         )
 
+        // Затем получаем полную информацию по ID через отдельный запрос
+        val coin = coinStatsService.getCoinById(foundCoin.id) ?: foundCoin
+
+        // Формируем описание с основной информацией
+        val descriptionParts = mutableListOf<String>()
+        descriptionParts.add("Ранг: ${coin.rank}")
+        if (coin.availableSupply != null && coin.totalSupply != null) {
+            descriptionParts.add("В обращении: ${formatNumber(coin.availableSupply)} / ${formatNumber(coin.totalSupply)}")
+        }
+        if (coin.priceChange1h != null) {
+            descriptionParts.add("Изменение за 1ч: ${formatPercent(coin.priceChange1h)}%")
+        }
+        if (coin.priceChange1d != null) {
+            descriptionParts.add("Изменение за 24ч: ${formatPercent(coin.priceChange1d)}%")
+        }
+        if (coin.priceChange1w != null) {
+            descriptionParts.add("Изменение за неделю: ${formatPercent(coin.priceChange1w)}%")
+        }
+
         return listOf(
             ChatResponseItem(
                 type = "coin",
                 symbol = coin.ticker,
                 name = coin.name,
-                description = "Ранг: ${coin.rank}",
-                marketCap = coin.marketCap,
+                description = descriptionParts.joinToString(" | "),
+                icon = coin.icon,
+                id = coin.id,
+                rank = coin.rank,
                 price = coin.price,
-                change24h = coin.priceChange1d
+                priceBtc = coin.priceBtc,
+                volume24h = coin.volume24h,
+                marketCap = coin.marketCap,
+                availableSupply = coin.availableSupply,
+                totalSupply = coin.totalSupply,
+                fullyDilutedValuation = coin.fullyDilutedValuation,
+                change1h = coin.priceChange1h,
+                change24h = coin.priceChange1d,
+                change1w = coin.priceChange1w,
+                websiteUrl = coin.websiteUrl,
+                redditUrl = coin.redditUrl,
+                twitterUrl = coin.twitterUrl,
+                contractAddress = coin.contractAddress,
+                contractAddresses = coin.contractAddresses?.map {
+                    ContractAddressInfo(
+                        blockchain = it.blockchain,
+                        contractAddress = it.contractAddress
+                    )
+                },
+                decimals = coin.decimals,
+                explorers = coin.explorers,
+                liquidityScore = coin.liquidityScore,
+                volatilityScore = coin.volatilityScore,
+                marketCapScore = coin.marketCapScore,
+                riskScore = coin.riskScore,
+                avgChange = coin.avgChange
             )
         )
+    }
+
+    private fun formatNumber(value: Double): String {
+        return when {
+            value >= 1_000_000_000 -> String.format("%.2fB", value / 1_000_000_000)
+            value >= 1_000_000 -> String.format("%.2fM", value / 1_000_000)
+            value >= 1_000 -> String.format("%.2fK", value / 1_000)
+            else -> String.format("%.2f", value)
+        }
+    }
+
+    private fun formatPercent(value: Double): String {
+        val sign = if (value >= 0) "+" else ""
+        return String.format("%s%.2f", sign, value)
     }
 
   private fun findTicker(text: String): String {
