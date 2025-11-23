@@ -137,16 +137,12 @@ class ChatProcessor(
             )
         }
 
-        // Сначала ищем монету в списке по тикеру или названию
-        val foundCoin = coinStatsService.getCoinByTicker(symbol) ?: return listOf(
+        val coin = coinStatsService.getCoinByTicker(symbol) ?: return listOf(
             ChatResponseItem(
                 type = "text",
                 text = "Монета с символом '$symbol' не найдена"
             )
         )
-
-        // Затем получаем полную информацию по ID через отдельный запрос
-        val coin = coinStatsService.getCoinById(foundCoin.id) ?: foundCoin
 
         // Формируем описание с основной информацией
         val descriptionParts = mutableListOf<String>()

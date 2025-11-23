@@ -47,17 +47,6 @@ class CoinStatsService {
         }
     }
 
-    suspend fun getCoinById(coinId: String): CoinStatsCoin? {
-        return try {
-            client.get("$baseUrl/coins/$coinId") {
-                header("X-API-KEY", apiKey)
-            }.body<CoinStatsCoin>()
-        } catch (e: Exception) {
-            println("Error fetching coin by id '$coinId': ${e.message}")
-            null
-        }
-    }
-
     suspend fun getNews(limit: Int = 10): List<CoinStatsNews> {
         return try {
             val response: CoinStatsNewsResponse = client.get("$baseUrl/news") {
